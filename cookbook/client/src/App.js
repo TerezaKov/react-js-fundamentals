@@ -3,6 +3,7 @@ import RecipeList from "./bricks/RecipeList";
 import Recipe from "./bricks/Recipe";
 import IngredientsList from "./bricks/IngredientsList";
 import Ingredient from "./bricks/Ingredient";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const recipeList = [
   {
@@ -792,7 +793,9 @@ const ingredienceList = [
 function App() {
   return (
     <div className="App">
+      <header className="AppHeader"> 
       <h1>Kuchařka</h1>
+      </header>
       <p>Vítejte v Terčině kuchařce. Zde se můžete inspirovat, jak ve vaření, tak v programování.
         </p>
         <RecipeList recipeList={recipeList} />

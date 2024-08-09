@@ -1,6 +1,7 @@
 import './App.css';
 import ClassroomInfo from "./bricks/ClassroomInfo";
 import StudentList from "./bricks/StudentList";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const classroom = {
   name: "Septima"
