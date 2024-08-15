@@ -1,5 +1,6 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
+import '../App.css';
 
 function RecipeTableList(props) {
   return (
@@ -7,17 +8,17 @@ function RecipeTableList(props) {
       <thead>
         <tr>
           <th>Jméno</th>
-          <th>Příjmení</th>
-          <th>Rodné číslo</th>
+          <th>Popis</th>
+          <th>Id</th>
         </tr>
       </thead>
       <tbody>
-        {props.RecipeList.map((recipe) => {
+        {props.recipeList.map((recipe) => {
           return (
             <tr key={recipe.id}>
               <td>{recipe.name}</td>
               <td>{recipe.description}</td>
-              <td>{recipe.ingredients}</td>
+              <td>{recipe.id}</td>
             </tr>
           );
         })}
