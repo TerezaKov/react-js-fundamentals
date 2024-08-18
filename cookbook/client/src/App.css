@@ -9,54 +9,53 @@
 }
 
 .AppHeader {
-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-background-color: #20499b;
+font-family: Verdana, Geneva, Tahoma, sans-serif;
+background-color: #dcad61;
 min-height: 20vh;
 display: flex;
-flex-direction: column;
 align-items: center;
-justify-content: center;
+justify-content: space-around;
 font-size: 8vh;
 font-weight:500;
-color: antiquewhite;
+color:  #876a3c;
 }
 
 .card {
   display: flex;
   flex-direction:column;
-  justify-content: space-between;
+  justify-content: space-around;
   margin: 10px;
   width: calc(100% - 20px);
   box-sizing: border-box;
-  box-shadow: 5px #282c34;
+  box-shadow: 5px ;
 }
 
 .cardImg {
   max-width: 100%;
-  height: auto;
+  max-height: 120px;
 }
 
 .cardBody {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  background-color: rgb(215, 226, 228);
+  justify-content: space-around;
+  background-color: #dcad61;
 }
 
 .cardTitle {
-  color:black;
+  color:#322716;
 }
 
 .cardText {
-  color: rgb(14, 14, 43);
+  color: #322716;
 }
 
 .smallCard {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   margin: 10px;
-  color: rgb(14, 14, 43);
+  color: #322716;
 }
 
 .smallCardImg {
@@ -65,7 +64,7 @@ color: antiquewhite;
 }
 
 .smallCardBody {
-  background-color: grey;
+  background-color: #dcad61;
 }
 
 .smallCardText {
@@ -85,37 +84,31 @@ color: antiquewhite;
 }
 
 .error {
-  background-color: lightpink;
+  background-color: red;
   padding: 32px;
 }
 
 .btn-search {
-  color: #282c34 !important;
-  border-color: #282c34 !important;
+  color: #dcad61 !important;
+  border-color: #876a3c !important;
   border-radius: 5px;
   margin-right: 8px;
 }
 
 .btn-search:hover {
-  background-color: #282c34 !important; 
+  background-color: #876a3c!important; 
   color: antiquewhite !important; 
-  border-color: #282c34 !important; 
+  border-color: #dcad61 !important; 
 }
 
-.btn-style {
-  color: #282c34 !important;
-  border-color: #282c34 !important;
-  border-radius: 5px;
-}
-
-.btn-style:hover {
-  background-color: #282c34 !important; 
-  color: antiquewhite !important; 
-  border-color: #282c34 !important; 
-}
-
-.btn-active {
-  background-color: #282c34 !important;
+.seeMore-btn {
+  background-color: #876a3c !important;
   color: antiquewhite !important;
-  border-color: #282c34 !important;
+  border-color: #dcad61 !important;
 }
+
+.btn-primary {
+  background-color: #876a3c !important;
+  color: antiquewhite !important;
+  border-color: #dcad61 !important;
+  }

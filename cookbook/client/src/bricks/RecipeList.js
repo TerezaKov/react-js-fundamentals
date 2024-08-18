@@ -11,10 +11,13 @@ import Icon from "@mdi/react";
 import { mdiTable, mdiViewGridOutline, mdiViewList, mdiMagnify } from "@mdi/js";
 
 function RecipeList(props) {
-  const [viewType, setViewType] = useState("grid");
+  const [viewType, setViewType] = useState("Tabulka");
   const [searchBy, setSearchBy] = useState("");
+  const viewTypes = ["Velké karty", "Malé karty", "Tabulka"];
+  const isGrid = viewType === "Velká karty" || viewType === "Malé karty";
 
   const filteredRecipeList = useMemo(() => {
+
     return props.recipeList ? props.recipeList.filter((item) => {
       return (
         item.name
@@ -29,6 +32,15 @@ function RecipeList(props) {
     event.preventDefault();
     setSearchBy(event.target["searchInput"].value);
   }
+
+  function getNextViewType() {
+    const currentIndex = viewTypes.indexOf(viewType);
+    if (currentIndex === viewTypes.length - 1) {
+        setViewType(viewTypes[0])
+    } else {
+        setViewType(viewTypes[currentIndex + 1]);
+    }
+}
   
   function handleSearchDelete(event) {
     if (!event.target.value) setSearchBy("");
@@ -36,7 +48,7 @@ function RecipeList(props) {
 
   return (
     <div>
-      <Navbar bg="light">
+      <Navbar>
         <div className="container-fluid">
           <Navbar.Brand>Seznam receptů</Navbar.Brand>
           <div>
@@ -58,37 +70,22 @@ function RecipeList(props) {
                 <Icon size={1} path={mdiMagnify} />
               </Button>
 
-              <Button
-                className={`btn-style ${viewType === "grid" ? "btn-active" : ""}`}
-                onClick={() => setViewType("grid")}
-                variant="none"
-              >
-                <Icon size={1} path={mdiViewGridOutline} /> Velké karty
-              </Button>
-
-              <Button
-                className={`btn-style ${viewType === "smallCards" ? "btn-active" : ""}`}
-                onClick={() => setViewType("smallCards")}
-                variant="none"
-              >
-                <Icon size={1} path={mdiViewList} /> Malé karty
-              </Button>
-
-              <Button
-                className={`btn-style ${viewType === "table" ? "btn-active" : ""}`}
-                onClick={() => setViewType("table")}
-                variant="none"
-              >
-                <Icon size={1} path={mdiTable} /> Tabulka
-              </Button>
+              <Button         
+                                //variant="outline-primary"
+                                onClick={getNextViewType}
+                            >
+                                <Icon size={1} path={isGrid ? mdiTable : mdiViewGridOutline} />{" "}
+                                {viewType}
+                            </Button>
             </Form>
 
           </div>
         </div>
       </Navbar>
-      {viewType === "grid" && <RecipeGridList recipeList={filteredRecipeList} />}
-      {viewType === "smallCards" && <RecipeSmallCardList recipeList={filteredRecipeList} ingredientList={props.ingredientList}/>}
-      {viewType === "table" && <RecipeTableList recipeList={filteredRecipeList} />}
+      {viewType === "Velké karty" && <RecipeGridList recipeList={filteredRecipeList} />}
+      {viewType === "Malé karty" && <RecipeSmallCardList recipeList={filteredRecipeList} ingredientList={props.ingredientList}/>}
+      {viewType === "Tabulka" && <RecipeTableList recipeList={filteredRecipeList} />}
+
     </div>
   );
 }

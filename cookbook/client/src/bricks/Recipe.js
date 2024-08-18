@@ -19,8 +19,8 @@ function Recipe(props) {
                 {isExpanded ? props.recipe.description : `${props.recipe.description.substring(0, 200)}...`}
             </Card.Text>
             {props.recipe.description.length > 200 && (
-                <Button variant="link" className="toggle-btn" onClick={handleToggleExpand}>
-                    {isExpanded ? "\u00AB" : "\u00BB"}
+                <Button className="seeMore-btn" onClick={handleToggleExpand}>
+                    {isExpanded ? "Méně" : "Více"}
                 </Button>
             )}
         </Card.Body>

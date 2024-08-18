@@ -1,13 +1,13 @@
 import React from "react";
 import Ingredient from "./Ingredient";
 
-function IngredienceList(props) {
-  function getIngredienceList(ingredienceList) {
-  return ingredienceList.map((ingredience) => {
-    return <Ingredient key ={ingredience.id} ingredience = {ingredience} />
+function IngredientsList(props) {
+  function getIngredientsList(ingredientsList) {
+  return ingredientsList.map((ingredients) => {
+    return <Ingredient key ={ingredients.id} ingredients = {ingredients} />
   });
   }
-  return getIngredienceList(props.ingredienceList);
+  return getIngredientsList(props.ingredientsList);
 }
 
-export default IngredienceList;
+export default IngredientsList;
