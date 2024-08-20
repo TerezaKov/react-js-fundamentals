@@ -3,15 +3,20 @@ import { Col, Row } from 'react-bootstrap';
 import Recipe from "./Recipe";
 
 function RecipeGridList(props) {
-  return props.recipeList.map((recipe) => {
-    return <Row>
-    {props.recipeList.map((recipe) => (
-      <Col xs={12} sm={6} md={4} lg={3} key={recipe.id}>
-        <Recipe recipe={recipe} />
-      </Col>
-    ))}
-  </Row>
-  });
+    return (
+      <div class="row">
+        {props.recipeList.map((recipe) => {
+          return (
+            <div
+              class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3"
+              style={{ paddingBottom: "16px" }}
+            >
+              <Recipe key={recipe.id} recipe={recipe} />
+            </div>
+          );
+        })}
+      </div>
+    );
 }
 
 export default RecipeGridList;

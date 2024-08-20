@@ -2,6 +2,7 @@ import React, { useState, useMemo } from "react";
 import RecipeGridList from "./RecipeGridList";
 import RecipeSmallCardList from "./RecipeSmallCardList";
 import RecipeTableList from "./RecipeTableList";
+import styles from "../css/recipeList.module.css";
 
 import Form from "react-bootstrap/Form";
 import Navbar from "react-bootstrap/Navbar";
@@ -40,17 +41,19 @@ function RecipeList(props) {
     } else {
         setViewType(viewTypes[currentIndex + 1]);
     }
-}
-  
+  }
+
   function handleSearchDelete(event) {
     if (!event.target.value) setSearchBy("");
   }
 
-  return (
+return (
     <div>
-      <Navbar>
+      <Navbar collapseOnSelect expand="sm">
         <div className="container-fluid">
           <Navbar.Brand>Seznam receptů</Navbar.Brand>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse style={{ justifyContent: "right" }}>
           <div>
           <Form className="d-flex" onSubmit={handleSearch}>
               <Form.Control
@@ -70,16 +73,19 @@ function RecipeList(props) {
                 <Icon size={1} path={mdiMagnify} />
               </Button>
 
-              <Button         
-                                //variant="outline-primary"
-                                onClick={getNextViewType}
+              <Button
+                  className={"d-none d-md-block"}     
+                  variant="outline-primary"
+                  onClick={getNextViewType}
                             >
-                                <Icon size={1} path={isGrid ? mdiTable : mdiViewGridOutline} />{" "}
-                                {viewType}
-                            </Button>
+                    <Icon size={1} path={isGrid ? mdiTable : mdiViewGridOutline} />{" "}
+                    {viewType}
+              </Button>
             </Form>
 
-          </div>
+
+               </div>
+            </Navbar.Collapse>
         </div>
       </Navbar>
       {viewType === "Velké karty" && <RecipeGridList recipeList={filteredRecipeList} />}
