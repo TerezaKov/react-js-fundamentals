@@ -121,7 +121,7 @@ function App() {
                 <Nav.Link onClick={() => navigate("/recipeList")}>
                   Recepty
                 </Nav.Link>
-                <Nav.Link onClick={() => navigate("/ingredientList")}>
+                <Nav.Link onClick={() => navigate("/ingredientsList")}>
                   Ingredience
                 </Nav.Link>
               </Nav>

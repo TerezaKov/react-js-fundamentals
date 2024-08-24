@@ -1,6 +1,6 @@
 
 function RecipeDetail() {
-  return <div>TODO RecipeList</div>;
+  return <div>TODO RecipeDetail</div>;
   
 }
 
