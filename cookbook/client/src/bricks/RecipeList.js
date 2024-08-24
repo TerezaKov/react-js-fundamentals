@@ -2,14 +2,14 @@ import React, { useState, useMemo } from "react";
 import RecipeGridList from "./RecipeGridList";
 import RecipeSmallCardList from "./RecipeSmallCardList";
 import RecipeTableList from "./RecipeTableList";
-import styles from "../css/recipeList.module.css";
+
 
 import Form from "react-bootstrap/Form";
 import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 
 import Icon from "@mdi/react";
-import { mdiTable, mdiViewGridOutline, mdiViewList, mdiMagnify } from "@mdi/js";
+import { mdiTable, mdiViewGridOutline, mdiMagnify } from "@mdi/js";
 
 function RecipeList(props) {
   const [viewType, setViewType] = useState("Tabulka");
