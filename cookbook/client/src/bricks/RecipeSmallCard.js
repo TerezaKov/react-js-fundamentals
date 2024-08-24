@@ -4,7 +4,7 @@ import '../App.css';
 
 function RecipeSmallCard(props) {
   const ingredients = props.recipe.ingredients.map(ingredient => {
-    const ingredientDetails = props.ingredientList.find(item => item.id === ingredient.id);
+  const ingredientDetails = props.ingredientList ? props.ingredientList.find(item => item.id === ingredient.id) : null;
     return `${ingredient.amount} ${ingredient.unit} ${ingredientDetails ? ingredientDetails.name : ''}`;
   });
 

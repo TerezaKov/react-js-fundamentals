@@ -1,71 +1,76 @@
-import { useEffect, useState } from "react";
+import BrickRecipeList from "../bricks/RecipeList";
 import CookbookInfo from "../bricks/CookbookInfo"
-import { useSearchParams } from "react-router-dom";
-import Recipe from "../bricks/Recipe";
+import React, {useEffect, useState} from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Icon from "@mdi/react";
-import { mdiLoading } from "@mdi/js";
-import styles from "../css/recipeList.module.css";
+import {mdiLoading} from "@mdi/js";
+import {Nav} from "react-bootstrap";
 
-function RecipeList() {
 
-  const cookbook = {
-    name: "Kucharka"
-  };
+function RecipeList(){
+    const cookbook = {
+        name: "Kuchařka"
+    };
 
-  const [recipeLoadCall, setRecipeLoadCall] = useState({
-    state: "pending",
-  });
-  let [searchParams] = useSearchParams();
+    const [searchTerm, setSearchTerm] = useState('');
 
-  const recipeId = searchParams.get("id");
+    const handleSearch = (e) => {
+        setSearchTerm(e.target.value);
+    };
 
-  useEffect(() => {
-    setRecipeLoadCall({
-      state: "pending",
-    });
-    fetch(`http://localhost:3000/recipe/load?id=${recipeId}`, {
-      method: "GET",
-    }).then(async (response) => {
-      const responseJson = await response.json();
-      if (response.status >= 400) {
-        setRecipeLoadCall({ state: "error", error: responseJson });
-      } else {
-        setRecipeLoadCall({ state: "success", data: responseJson });
-      }
-    });
-  }, [recipeId]);
+    const [repipesLoadCall, setRepipesLoadCall] = useState(
+        {state: "pending"}
+    );
+    const [ingredientsLoadCall, setIngredientsLoadCall] = useState(
+        {state: "pending"}
+    );
 
-  function getChild() {
-    switch (recipeLoadCall.state) {
-      case "pending":
-        return (
-          <div className={styles.loading}>
-            <Icon size={2} path={mdiLoading} spin={true} />
-          </div>
-        );
-      case "success":
-        return (
-          <>
-            <Recipe classroom={recipeLoadCall.data} />
-          </>
-        );
-      case "error":
-        return (
-          <div className={styles.error}>
-            <div>Nepodařilo se načíst data o receptu.</div>
-            <br />
-            <pre>{JSON.stringify(recipeLoadCall.error, null, 2)}</pre>
-          </div>
-        );
-      default:
-        return null;
+    useEffect(() => {
+        if (repipesLoadCall.state === "pending") {
+            fetch('//localhost:3000/recipe/list')
+                .then((response) => response.json())
+                .then((data) => {
+                    setRepipesLoadCall({state: "success", data: data});
+                })
+                .catch((error) => {
+                    setRepipesLoadCall({state: "error", error: error});
+                });
+        }
+        if (ingredientsLoadCall.state === "pending") {
+            fetch('//localhost:3000/ingredient/list')
+                .then((response) => response.json())
+                .then((data) => {
+                    setIngredientsLoadCall({state: "success", data: data});
+                })
+                .catch((error) => {
+                    setIngredientsLoadCall({state: "error", error: error});
+                });
+        }
+    }, []);
+
+    function getChild() {
+        switch (repipesLoadCall.state && ingredientsLoadCall.state) {
+            case "pending":
+                return (
+                    <div>
+                        <Icon size={1} path={mdiLoading} spin={true} /> Recipe List
+                    </div>
+                );
+            case "error":
+                return <div>Error: {repipesLoadCall.error.message}</div>;
+            case "success":
+                return(
+                    <BrickRecipeList searchTerm={searchTerm} recipeList={repipesLoadCall.data} ingredientsList={ingredientsLoadCall.data}/>
+                );
+        }
     }
-  }
 
-  return <div>
-  <CookbookInfo cookbook={cookbook}/>
-  {getChild()}
-</div>;
+    return(
+        <div>
+            <CookbookInfo cookbook={cookbook}/>
+            {getChild()}
+        </div>
+    );
 }
 
 export default RecipeList;
