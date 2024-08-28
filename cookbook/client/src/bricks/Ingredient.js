@@ -1,15 +1,15 @@
 import React from "react";
 
 function Ingredient(props) {
-    const ingredientData = props.ingredientsList.find(item => item.id === props.ing.id);
-    const ingredientName = ingredientData ? ingredientData.name : " ";
-    return (
-        <div>
-            <li>
-                {ingredientName} ({props.ing.amount} {props.ing.unit})
-            </li>
-        </div>
-    )
+  const ingredientData = props.ingredientsList.find(item => item.id === props.ingredient.id);
+  const ingredientName = ingredientData ? ingredientData.name : " ";
+  return (
+    <div>
+    
+        {ingredientName} ({props.ingredient.amount} {props.ingredient.unit})
+    
+</div>
+  )
 }
 
 export default Ingredient;
