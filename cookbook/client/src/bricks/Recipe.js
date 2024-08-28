@@ -1,31 +1,84 @@
-import React, { useState } from "react";
-import Card from "react-bootstrap/Card";
+import React, { useContext, useState } from "react";
+import Card from 'react-bootstrap/Card';
+import IngredientList from "./IngredientList";
+import RecipeForm from "./RecipeForm";
 import Button from "react-bootstrap/Button";
-import '../App.css';
+import UserContext from "../UserProvider";
 
 function Recipe(props) {
-  const [isExpanded, setIsExpanded] = useState(false);
+    const [showEditModal, setShowEditModal] = useState(false);
+    const { isAuthorized } = useContext(UserContext);
 
-  const handleToggleExpand = () => {
-      setIsExpanded(!isExpanded);
-  };
+    const handleOpenEditModal = () => {
+        setShowEditModal(true);
+    };
 
-  return (
-    <Card className="recipe-card">
-        <Card.Img className="cardImg" variant="top" src={props.recipe.imgUri} alt={props.recipe.name} />
-        <Card.Body className="cardBody">
-            <Card.Title className="cardTitle">{props.recipe.name}</Card.Title>
-            <Card.Text className="cardText">
-                {isExpanded ? props.recipe.description : `${props.recipe.description.substring(0, 200)}...`}
-            </Card.Text>
-            {props.recipe.description.length > 200 && (
-                <Button className="seeMore-btn" onClick={handleToggleExpand}>
-                    {isExpanded ? "Méně" : "Více"}
-                </Button>
-            )}
-        </Card.Body>
-    </Card>
-);
+    const handleEditClick = () => {
+        if (props.recipe) {
+            handleOpenEditModal();
+        }
+    };
+
+    const [isExpanded, setIsExpanded] = useState(false);
+
+    const handleToggleExpand = () => {
+        setIsExpanded(!isExpanded);
+    };
+
+    if (props.viewType === "grid-small") {
+        return (
+            <Card>
+                <Card.Img variant={"top"} src={props.recipe.imgUri} />
+                <Card.Body>
+                    <div>
+                        {props.recipe.name}
+                    </div>
+                    <div>
+                        {props.recipe.description}
+                    </div>
+                </Card.Body>
+            </Card>
+        );
+    } else if (props.viewType === "grid") {
+        return (
+            <Card>
+                <Card.Img variant={"top"} src={props.recipe.imgUri} />
+                <Card.Body>
+                    <div>
+                        {props.recipe.name}
+                    </div>
+                    <div>
+                        {isExpanded ? props.recipe.description : `${props.recipe.description.substring(0, 200)}...`}
+                    </div>
+                    {props.recipe.description.length > 200 && (
+                        <>
+                            <Button onClick={handleToggleExpand}>
+                                {isExpanded ? "Méně" : "Více"}
+                            </Button>
+                            {isExpanded && (
+                                <div>
+                                    <IngredientList
+                                        ingredientList={props.recipe.ingredients}
+                                        ingredientsList={props.ingredientsList}
+                                    />
+                                </div>
+                            )}
+                        </>
+                    )}
+                    {isAuthorized && (
+                        <Button onClick={handleEditClick}>Upravit recept</Button>
+                    )}
+                    <RecipeForm
+                        recipe={props.recipe}
+                        showModal={showEditModal}
+                        setShowModal={setShowEditModal}
+                        ingredientList={props.ingredientsList}
+                        handleOpenEditModal={handleOpenEditModal}
+                    />
+                </Card.Body>
+            </Card>
+        );
+    }
 }
 
 export default Recipe;
